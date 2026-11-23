@@ -18,3 +18,4 @@ create policy "Users can insert their own scores" on public.rhythm_scores
 for insert to authenticated with check (auth.uid() = user_id);
 grant select, insert on public.rhythm_scores to authenticated;
 grant usage, select on sequence public.rhythm_scores_id_seq to authenticated;
+
