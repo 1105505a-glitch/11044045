@@ -1,4 +1,3 @@
-
 // ==========================================
 // 六軌音樂節奏遊戲 - game.js
 // ==========================================
@@ -793,7 +792,7 @@ function saveRecord(record) {
 }
 
 function showRecords() {
-    const list = $("recordList");
+    const list = $("recordsList");
     if (!list) return;
 
     list.innerHTML = "";
@@ -1038,8 +1037,8 @@ if ($("editorBtn")) {
 }
 
 // 返回編輯器
-if ($("editorBackBtn")) {
-    $("editorBackBtn").addEventListener("click", () => {
+if ($("backLobbyBtn")) {
+    $("backLobbyBtn").addEventListener("click", () => {
         editorRecording = false;
         isEditor = false;
         showOnly("lobby");
@@ -1107,9 +1106,25 @@ if ($("recordsBtn")) {
 }
 
 // 返回大廳（成績）
-if ($("recordsBackBtn")) {
-    $("recordsBackBtn").addEventListener("click", () => {
+if ($("recordsHomeBtn")) {
+    $("recordsHomeBtn").addEventListener("click", () => {
         showOnly("lobby");
+    });
+}
+
+// 清除本機成績紀錄
+if ($("clearRecordsBtn")) {
+    $("clearRecordsBtn").addEventListener("click", () => {
+        if (!confirm("確定要清除這台裝置上的所有成績紀錄嗎？此操作無法復原。")) {
+            return;
+        }
+
+        localStorage.removeItem("records");
+        localStorage.removeItem("bestScore");
+        bestScore = 0;
+        updateText("bestScore", bestScore);
+        updateText("resultBestScore", bestScore);
+        showRecords();
     });
 }
 
@@ -1297,3 +1312,4 @@ function initializeGame() {
 }
 
 initializeGame();
+
